@@ -1,30 +1,32 @@
-<!-- PHP code -->
-<?php
+<!-- Javascript-->
 
-	if (isset($_POST['forward-button']))
-	{
-			 // exec('notify-send \'forward\'');
-			$input='↑';
-	} elseif (isset($_POST['backward-button'])) {
-			$input='↓';
-	} elseif (isset($_POST['left-button'])) {
-			$input='←';
-	} elseif (isset($_POST['right-button'])) {
-			$input='→';
-	} elseif (isset($_POST['laser-on-button'])) {
-			$input='LASER ON';
-			exec('sudo echo 1 > /dev/etx_device');
-	} elseif (isset($_POST['laser-off-button'])) {
-			$input='LASER OFF';
-			exec('sudo echo 0 > /dev/etx_device');
-	}
-				
+<script>
+
+function forward_button_cb() {
+  var forward = document.getElementById("forward-button").value;
+  document.getElementById("input").value = "FORWARD";
+	event.preventDefault(); // avoid the page from refreshing
+}
+
+function laser_on_button_cb() {
+  var forward = document.getElementById("laser-on-button").value;
+  document.getElementById("input").value = "LASER ON";
+	event.preventDefault(); // avoid the page from refreshing
+
+	exec('echo 1 > /dev/etx_device', function (error, stdOut, stdErr) {
+    // do what you want!
+});
+
+}
+
+function laser_off_button_cb() {
+  var forward = document.getElementById("laser-off-button").value;
+  document.getElementById("input").value = "LASER OFF";
+	event.preventDefault(); // avoid the page from refreshing
+}
 
 
-
-
-?>
-
+</script>
 
 <!-- HTML -->
 <html>
@@ -33,33 +35,33 @@
 
 			<div class='input-parent'>	
 				<!-- Print $input to the input text box-->
-				<input class='input-parent' name='input' value="<?php echo $input?>" readonly></label>
+				<input class='input-parent' id='input'" readonly></label>
 			</div>
 
 			<br>
 
 			<div class='forward-class'>	
-    		<button class='button-class' name="forward-button">Forward</button>
+    		<button class='button-class' id="forward-button" onclick="forward_button_cb()">Forward</button>
 			</div>
 
 			<br>
 
 			<div class='left-right-class'>	
-    		<button class='button-class' name="left-button">Left</button>
-    		<button class='button-class' name="right-button">Right</button>
+    		<button class='button-class' id="left-button">Left</button>
+    		<button class='button-class' id="right-button">Right</button>
 			</div>
 
 			<br>
 
 			<div class='backward-class'>	
-    		<button class='button-class' name="backward-button">Backward</button>
+    		<button class='button-class' id="backward-button">Backward</button>
 			</div>	
 
 			<br>
 
 			<div class='panel-class'>	
-    		<button class='button-class' name="laser-on-button">LASER ON</button>
-    		<button class='button-class' name="laser-off-button">LASER OFF</button>
+    		<button class='button-class' id="laser-on-button" onclick="laser_on_button_cb()">LASER ON</button>
+    		<button class='button-class' id="laser-off-button" onclick="laser_off_button_cb()">LASER OFF</button>
 			</div>	
 
 			<br>
