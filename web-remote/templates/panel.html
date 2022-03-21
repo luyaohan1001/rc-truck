@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>RC TRUCK PANEL</title>
+</head>
+
+<body>
+    <form method="POST" action={{url_for('button_press_handler')}}>
+
+
+			<div class='input-parent'>	
+				<!-- Print $input to the input text box-->
+				{% with messages = get_flashed_messages() %}  
+					 {% if messages %}  
+								 {% for message in messages %}  
+											<input class='input-button' id='input' readonly>{{message}}</input>
+								 {% endfor %}  
+					 {% endif %}  
+				{% endwith %}  
+
+			</div>
+
+			<br>
+
+
+    		<button class='pan-positionL90' name='buttons' id='pan-positionL90' value="pan-positionL90">LASER -90</button>
+			<div class='row01-class'>	
+
+    		<button class='truck-movement-class' name='buttons' value="forward-button">Forward</button>
+    		<button class='laser-movement-class' name='buttons' value="pan-positionR90">LASER +90</button>
+			</div>
+
+			<br>
+
+
+			<!-- Group left and right button together to assist css horizontal arrangement. -->
+			<div class='row02-class'>	
+    		<button class='truck-movement-class' name='buttons' value="left-button">Left</button>
+    		<button class='truck-movement-class' name='buttons' value="right-button">Right</button>
+			</div>
+
+			<br>
+
+			<div class='row03-class'>	
+    		<button class='truck-movement-class' name='buttons' value="backward-button">Backward</button>
+			</div>	
+
+			<br>
+
+			<div class='row04-class'>	
+    		<button class='truck-movement-class' name='buttons' value="laser-on-button" onclick="laser_on_button_cb()">laser on</button>
+    		<button class='truck-movement-class' name='buttons' value="laser-off-button" onclick="laser_off_button_cb()">laser off</button>
+			</div>	
+
+			<br>
+
+    </form>
+</body>
+
+<!-- STYLE -->
+<style>
+	body {
+		background-color: c0c0c0;
+	}
+
+	/* ---- ---- Below are styles to class of elements according to the specific element ---- ---- */
+	/*---- ---- text box ---- ----*/
+	.input-parent {
+		border: none;
+		color: green;
+		padding-top: 10px 20px; 		/* padding = white space */
+		text-align: center;
+		text-decoration: none;
+		display: inline-block;	
+		font-size: 30px;
+		margin: 40px 40px;	/* margin is how much distance the element want to be away from others*/
+		display: flex;
+		justify-content: center;
+	}
+
+	/* ---- ---- forward class ---- ----*/
+	.row01-class {
+		display: flex;
+		justify-content: center;
+	}
+
+	.pan-positionL90 {
+		position: absolute;
+		top: 200px;
+		left: 600px;
+	}
+
+	/* ---- ---- left-right class ---- ----*/
+	.row02-class {
+		display: flex;
+		justify-content: center;
+	}
+
+
+
+
+	/* ---- ---- backward class ---- ----*/
+	.row03-class {
+		display: flex;
+		justify-content: center;
+
+	}
+
+
+	/* ---- ---- panel class ---- ----*/
+	.row04-class {
+		display: flex;
+		justify-content: center;
+		margin: 100px 100px;
+	}
+
+
+
+	/* ---- ---- Below are styles to class of elements according to their type ---- ---- */
+	/* ---- ---- button styles ---- ----*/
+	.truck-movement-class {
+		border: 2px solid black;
+		color: black; 								/* text color */
+		padding: 15px 32px;
+		text-align: center;
+		text-decoration: none;
+		display: inline-block;
+		font-size: 40px;
+		margin: 4px 2px;
+ 	  transition-duration: 0.2s;
+	}
+
+	.truck-movement-class:hover {				/* hover style */
+  	background-color: blue; 
+  	color: white;
+	}
+
+
+	.laser-movement-class {
+		border: 2px solid black;
+		padding: 40px 0px 40px 0px;
+		height: 200px;
+		width: 200px;
+		color: green; 								/* text color */
+		text-align: center;
+		text-decoration: none;
+		display: inline-block;
+		font-size: 20px;
+ 	  transition-duration: 0.2s;
+	}
+
+	.laser-movement-class:hover {				/* hover style */
+  	background-color: green; 
+  	color: white;
+	}
+
+
+
+
+</style>
+
+
