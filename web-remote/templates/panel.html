@@ -9,49 +9,42 @@
     <form method="POST" action={{url_for('button_press_handler')}}>
 
 
-			<div class='input-parent'>	
-				<!-- Print $input to the input text box-->
-				{% with messages = get_flashed_messages() %}  
-					 {% if messages %}  
-								 {% for message in messages %}  
-											<input class='input-button' id='input' readonly>{{message}}</input>
-								 {% endfor %}  
-					 {% endif %}  
-				{% endwith %}  
+      <!-- Print $input to the input text box-->
+      {% with messages = get_flashed_messages(with_categories=true)  %}  
+         {% if messages %}  
+               {% for category, message in messages %}  
+                    <!-- input class='input-button' id='input' readonly>{{message}}</input -->
+                    <div class="{{ category }}">{{ message }}</div>
+               {% endfor %}  
+         {% endif %}  
+      {% endwith %}  
 
-			</div>
 
 			<br>
 
+    		<button class='servo-pan-N90-class button-style-class' name='buttons' value='servo-pan-N90' value="pan-positionL90">SERVO PAN -90</button>
 
-    		<button class='pan-positionL90 button-style-class' name='buttons' id='pan-positionL90' value="pan-positionL90">LASER -90</button>
 
-			<div class='row01-class'>	
+    		<button class='servo-pan-P90-class button-style-class' name='buttons' value="servo-pan-P90">SERVO PAN +90</button>
 
-    		<button class='truck-movement-class' name='buttons' value="forward-button">Forward</button>
-    		<button class='laser-movement-class' name='buttons' value="pan-positionR90">LASER +90</button>
-			</div>
 
 			<br>
 
+    		<button class='forward-class button-style-class' name='buttons' value="forward-button">Forward</button>
 
 			<!-- Group left and right button together to assist css horizontal arrangement. -->
-			<div class='row02-class'>	
-    		<button class='truck-movement-class' name='buttons' value="left-button">Left</button>
-    		<button class='truck-movement-class' name='buttons' value="right-button">Right</button>
-			</div>
+    		<button class='left-class button-style-class' name='buttons' value="left-button">Left</button>
+    		<button class='right-class button-style-class' name='buttons' value="right-button">Right</button>
 
 			<br>
 
-			<div class='row03-class'>	
-    		<button class='truck-movement-class' name='buttons' value="backward-button">Backward</button>
+    		<button class='backward-class button-style-class' name='buttons' value="backward-button">Backward</button>
 			</div>	
 
 			<br>
 
-			<div class='row04-class'>	
-    		<button class='truck-movement-class' name='buttons' value="laser-on-button" onclick="laser_on_button_cb()">laser on</button>
-    		<button class='truck-movement-class' name='buttons' value="laser-off-button" onclick="laser_off_button_cb()">laser off</button>
+    		<button class='laser-on-class button-style-class' name='buttons' value="laser-on-button">laser on</button>
+    		<button class='laser-off-class button-style-class' name='buttons' value="laser-off-button">laser off</button>
 			</div>	
 
 			<br>
@@ -69,6 +62,18 @@
 
 	/* ---- ---- Below are styles to class of elements according to the specific element ---- ---- */
 	/*---- ---- text box ---- ----*/
+  .flask-flash-text {
+		border: none;
+		color: green;
+		padding-top: 10px 20px; 		/* padding = white space */
+		text-align: center;
+		text-decoration: none;
+		display: inline-block;	
+		font-size: 30px;
+		margin: 40px 40px;	/* margin is how much distance the element want to be away from others*/
+		display: flex;
+		justify-content: center;
+  }
 	.input-parent {
 		border: none;
 		color: green;
@@ -83,41 +88,72 @@
 	}
 
 	/* ---- ---- forward class ---- ----*/
-	.row01-class {
-		display: flex;
-		justify-content: center;
-	}
-
-	.pan-positionL90 {
+	.forward-class {
 		position: absolute;
-		top: 200px;
-		left: 600px;
+		top: 10%;
+		left: 50%;
 	}
 
-	/* ---- ---- left-right class ---- ----*/
-	.row02-class {
-		display: flex;
-		justify-content: center;
-	}
-
-
-
-
-	/* ---- ---- backward class ---- ----*/
-	.row03-class {
-		display: flex;
-		justify-content: center;
-
+	/* ---- ---- left button ---- ---- */
+	.left-class {
+		position: absolute;
+		top: 20%;
+		left: 20%;
 	}
 
 
-	/* ---- ---- panel class ---- ----*/
-	.row04-class {
-		display: flex;
-		justify-content: center;
-		margin: 100px 100px;
+	/* ---- ---- right button ---- ---- */
+	.right-class {
+		position: absolute;
+		top: 20%;
+		left: 80%;
 	}
 
+	/* ---- ---- backward button ---- ---- */
+	.backward-class {
+		position: absolute;
+		top: 30%;
+		left: 50%;
+	}
+
+
+
+	/* ---- ---- laser on button ---- ----*/
+	.laser-on-class {
+		position: absolute;
+		top: 70%;
+		left: 5%;
+	}
+
+	/* ---- ---- laser off button ---- ----*/
+	.laser-off-class {
+		position: absolute;
+		top: 80%;
+		left: 5%;
+	}
+
+	.servo-pan-N90-class {
+		position: absolute;
+		top: 80%;
+		left: 20%;
+	}
+
+	.servo-pan-N90-class : hover {				/* hover style */
+  	background-color: green; 
+  	color: white;
+	}
+
+
+	.servo-pan-P90-class {
+		position: absolute;
+		top: 80%;
+		left: 80%;
+	}
+
+	.servo-pan-P90-class : hover {				/* hover style */
+  	background-color: green; 
+  	color: white;
+	}
 
 
 	/* ---- ---- Below are styles to class of elements according to their type ---- ---- */
@@ -140,23 +176,6 @@
 	}
 
 
-	.laser-movement-class {
-		border: 2px solid black;
-		padding: 40px 0px 40px 0px;
-		height: 200px;
-		width: 200px;
-		color: green; 								/* text color */
-		text-align: center;
-		text-decoration: none;
-		display: inline-block;
-		font-size: 20px;
- 	  transition-duration: 0.2s;
-	}
-
-	.laser-movement-class:hover {				/* hover style */
-  	background-color: green; 
-  	color: white;
-	}
 
 
 
